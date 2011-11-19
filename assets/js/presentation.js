@@ -71,12 +71,15 @@ Presentaiton.prototype.initCodeHighLight = function() {
 Presentaiton.prototype.updateWindowSize = function() {
 	var wh = $(window).height();
 	var $content = $('div.contents:visible');
+	var contentHeight = wh -
+		parseInt($content.css('padding-top'), 10) -
+		parseInt($content.css('padding-bottom'), 10);
 	var y = $content.position() !== null ? $content.position().top : 0;
-	if ($('#footer')) {
+	if ($('#footer').length > 0) {
 		var fh = $('#footer').outerHeight();
-		$content.height(wh - fh - y);
+		$content.height(contentHeight - fh - y);
 	} else {
-		$content.height(wh - y);
+		$content.height(contentHeight - y);
 	}
 }
 
@@ -120,6 +123,7 @@ Presentaiton.prototype.addZero = function(n, z) {
 }
 
 Presentaiton.prototype.move = function(p) {
+	console.log('move:' + p);
 	if (isNaN(p) || p < 0 || this.totalPage() <= p) {
 		p = 0;
 	}

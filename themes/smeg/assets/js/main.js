@@ -12,10 +12,14 @@ $(function(){
 
 		updateWindowSize();
 
-		var documentY = 0;
 		var clientHeight = $content.height();
+// 		var clientHeight = $(window).height() -
+// 			parseInt($content.css('padding-top'), 10) -
+// 			parseInt($content.css('padding-bottom'), 10);
+		var documentY = 0;
 		$content.children().each(function(){
 			documentY += $(this).outerHeight();
+			documentY += parseInt($(this).css('margin-bottom'), 10);
 		});
 		console.log('documentY > clientHeight ' + documentY + ' > ' + clientHeight);
 		if (documentY > clientHeight) {

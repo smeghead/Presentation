@@ -1,31 +1,32 @@
 $(function(){
+	var transform = function(elm, scale){
+		elm.css('-moz-transform-origin', '0 0');
+		elm.css('-webkit-transform-origin', '0 0');
+		elm.css('-moz-transform', scale);
+		elm.css('-webkit-transform', scale);
+	};
 	var updateWindowSize = Presentaiton.prototype.updateWindowSize;
 	Presentaiton.prototype.updateWindowSize = function(){
-		updateWindowSize();
 		var $content = $('div.contents:visible');
+		transform($content, '0 0');
+
+		updateWindowSize();
+
 		var documentY = 0;
 		var clientHeight = $content.height();
 		$content.children().each(function(){
 			documentY += $(this).outerHeight();
 		});
+		console.log('documentY > clientHeight ' + documentY + ' > ' + clientHeight);
 		if (documentY > clientHeight) {
 			var percentage = (clientHeight / documentY) * 100;
 			percentage = parseInt(percentage, 10);
-			$content.css('font-size', percentage + '%');
+			var scale = 'scale(' + (percentage / 100) + ')';
+			console.log(scale);
 
-			resizeFont($content, percentage);
+			transform($content, scale);
 		}
 	};
 
-	var resizeFont = function(elm, percentage){
-		elm.children().each(function(){
-			var $this = $(this);
-			var org = $this.css('font-size').replace(/[^\d]/g, '');
-			var newPercentage = org * percentage / 100;
-			$this.css('font-size', parseInt(newPercentage, 10) + 'px');
-
-			resizeFont($this, percentage);
-		});
-	};
 	window.presen = new Presentaiton(); 
 });

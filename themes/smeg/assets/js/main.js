@@ -10,7 +10,7 @@ $(function(){
 		var $content = $('div.contents:visible');
 		transform($content, '0 0');
 
-		updateWindowSize();
+		updateWindowSize.apply(this);
 
 		var clientHeight = $content.height();
 // 		var clientHeight = $(window).height() -

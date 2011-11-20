@@ -71,15 +71,12 @@ Presentaiton.prototype.initCodeHighLight = function() {
 Presentaiton.prototype.updateWindowSize = function() {
 	var wh = $(window).height();
 	var $content = $('div.contents:visible');
-	var contentHeight = wh -
-		parseInt($content.css('padding-top'), 10) -
-		parseInt($content.css('padding-bottom'), 10);
 	var y = $content.position() !== null ? $content.position().top : 0;
 	if ($('#footer').length > 0) {
 		var fh = $('#footer').outerHeight();
-		$content.height(contentHeight - fh - y);
+		$content.height(wh - fh - y);
 	} else {
-		$content.height(contentHeight - y);
+		$content.height(wh - y);
 	}
 }
 
